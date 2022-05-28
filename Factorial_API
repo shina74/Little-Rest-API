@@ -1,0 +1,18 @@
+from flask import Flask, request
+from math import factorial
+#импортируем необходимые библиотеки
+
+app = Flask(__name__) #создаем объект класса Flask
+
+@app.route('/fact/')  #работа с объектом
+def query_example():
+    num = request.args.get('num')  #получаем аргумент
+    try:                           #вылавливаем ошибки, если будет введено не число
+        int(num)
+    except ValueError:
+        return f'''<h1>Ошибка. Введите целое число в качестве параметра</h1>'''
+    else:
+        return f'''<h1>Факториал числа {num} равен {factorial(int(num))}</h1>'''
+
+if __name__ == '__main__':
+    app.run(debug=True, port=8000)
